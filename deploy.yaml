@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-client-demo
+  labels:
+    app: prometheus-client-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-client-demo
+  template:
+    metadata:
+      labels:
+        app: prometheus-client-demo
+    spec:
+      containers:
+      - name: prometheus-client-demo
+        image: harbor.euso.kr/base/prometheus-python-deo:0.1
+        ports:
+        - containerPort: 80
+        - containerPort: 8090
+        resources:
+          requests:
+            cpu: 0.2
+            memory: 128Mi
+          limits:
+            cpu: 0.2
+            memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-client-demo
+  labels:
+    app: prometheus-client-demo
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    nodePort: 30091
+  - name: metrics
+    port: 8090
+    targetPort: 8090
+    nodePort: 30092
+  selector:
+    app: prometheus-client-demo

@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prometheus-client-demo
+  labels:
+    app: prometheus-client-demo
+spec:
+  endpoints:
+  - port: metrics
+  selector:
+    matchLabels:
+      app: prometheus-client-demo
