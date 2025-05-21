@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: prometheus-client-demo
+  name: prometheus-metrics-example
   labels:
-    app: prometheus-client-demo
+    app: prometheus-metrics-example
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: prometheus-client-demo
+      app: prometheus-metrics-example
   template:
     metadata:
       labels:
-        app: prometheus-client-demo
+        app: prometheus-metrics-example
     spec:
       containers:
-      - name: prometheus-client-demo
-        image: harbor.euso.kr/base/prometheus-python-deo:0.1
+      - name: prometheus-metrics-example
+        image: harbor.euso.kr/base/prometheus-python-demo:latest
         ports:
         - containerPort: 80
         - containerPort: 8090
@@ -31,9 +31,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: prometheus-client-demo
+  name: prometheus-metrics-example
   labels:
-    app: prometheus-client-demo
+    app: prometheus-metrics-example
 spec:
   type: NodePort
   ports:
@@ -46,4 +46,4 @@ spec:
     targetPort: 8090
     nodePort: 30092
   selector:
-    app: prometheus-client-demo
+    app: prometheus-metrics-example
