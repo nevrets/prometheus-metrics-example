@@ -1,12 +1,19 @@
 ## Usage
 
+### Image Build and Push
 ```
-# 이미지 빌드 및 푸쉬
 podman build --no-cache -t image-tag .
 podman push image-tag
+```
 
-# kubernetes 배포
-kubectl apply -f deployment.yaml -n namcespace
+### Create Deployment, Service Monitor, HPA
+``` 
+kubectl apply -f deployment.yaml -n namespace
 kubectl apply -f servicemonitor.yaml -n namespace
+kubectl apply -f hpa.yaml -n namespace
+```
 
+### Check Metrics
+```
+kubectl get hpa prometheus-metrics-example --watch
 ```
